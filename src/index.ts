@@ -4,8 +4,9 @@ import cors from 'cors';
 
 dotenv.config();
 
+import authRouter from "@router/auth";
+
 const app: Express = express();
-const port = process.env.PORT || 4000;
 
 app.use(express.json());
 const corsOptions = {
@@ -19,6 +20,11 @@ app.get('/', (req: Request, res: Response) => {
     res.send("Express + TypeScript Server");
 });
 
+app.use("/auth", authRouter);
+
+console.log("Front end URL from env: ", process.env.FRONTEND_URL);
+
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
