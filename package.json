@@ -6,8 +6,8 @@
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "start": "npm run migrate-up && npm run seed && node dist/index.js",
     "dev": "nodemon -r tsconfig-paths/register src/index.ts",
-    "migrate-up": "knex migrate:up",
-    "migrate-latest": "knex migrate:latest --debug",
+    "migrate-up": "tsc knexfile.ts && knex migrate:up --knexfile knexfile.js",
+    "migrate-latest": "tsc knexfile.ts && knex migrate:latest --debug --knexfile knexfile.js",
     "migrate-down": "knext migrate:rollback",
     "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
