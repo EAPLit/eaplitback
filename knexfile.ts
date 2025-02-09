@@ -19,14 +19,14 @@ module.exports = {
       directory: "./db/migrations",
     },
     seeds: {
-      directory: "./src/seeds",
+      directory: "./db/seeds",
     },
   },
 
   production: {
     client: process.env.DB_CLIENT,
     connection: process.env.DB_URL_PRODUCTION,
-    ssl: { rejectUnauthorized: false }
+    ssl: { rejectUnauthorized: false },
     migrations: {
       directory: './db/migrations'
     },
