@@ -25,7 +25,8 @@ module.exports = {
 
   production: {
     client: process.env.DB_CLIENT,
-    connection: process.env.DB_URL_PRODUCTION
+    connection: process.env.DB_URL_PRODUCTION,
+    ssl: { rejectUnauthorized: false }
     debug: true,
     migrations: {
       directory: './db/migrations'
