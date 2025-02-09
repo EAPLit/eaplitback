@@ -23,4 +23,16 @@ module.exports = {
     },
   },
 
+  production: {
+    client: process.env.DB_CLIENT,
+    connection: process.env.DB_URL_PRODUCTION
+    debug: true,
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds'
+    }
+  }
+
 };
