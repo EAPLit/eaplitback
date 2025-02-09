@@ -9,10 +9,10 @@ export async function up(knex: Knex): Promise<void> {
             .notNullable()
             .references("id")
             .inTable("users")
-            .onDelete("CASCADE")
+            .onDelete("CASCADE");
         table.text("text").notNullable();
         table.timestamps(true, true);
-    })
+    });
 }
 
 
