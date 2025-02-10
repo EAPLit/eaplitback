@@ -1,6 +1,6 @@
 import { IUser } from '@interfaces/authInterfaces';
+import { AuthorizeUsers } from '@models/authModel';
 import { Request, Response, NextFunction } from "express";
-import AuthorizeUsers from "@models/authModel";
 import { v4 as uuidv4 } from "uuid";
 
 const authorizeUsers = new AuthorizeUsers();
