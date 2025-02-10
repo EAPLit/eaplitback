@@ -3,7 +3,9 @@ import express { Express, Response, Router } from 'express';
 const mylearningRouter: Router = express.Router();
 
 
-mylearningRouter.get('/getProjectList', (req: Request, res: Result) => {
+mylearningRouter.get('/projectList', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
+
+export default mylearningRouter;
