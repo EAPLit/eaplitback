@@ -1,5 +1,5 @@
 import Knex from "knex";
-import { Knex as KnexType } frm "knex";
+import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
 
 interface User {
@@ -19,7 +19,7 @@ class AuthorizeUsers {
     private knexUser: KnexType;
 
     constructor(knexInstance?: KnexType) {
-        this.knexUser = knexInstance ?? Knex(config);
+        this.knexUser = knexInstance ?? Knex(config[process.env.NODE_ENV || "development"]);
     }
 
     public async addUser(userData: User): Promise<void> {
@@ -59,4 +59,4 @@ class AuthorizeUsers {
     }
 }
 
-export default AuthorizeUsers:
+export default AuthorizeUsers;

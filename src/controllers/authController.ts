@@ -1,21 +1,50 @@
 import { Request, Response, NextFunction } from "express";
+import AuthorizeUsers from "@models/authModel";
+import { v4 as uuidv4 } from "uuid";
 
-export const getPublicKey = (req: Request, res: Response, next: NextFunction) => {
+const authorizeUsers = new AuthorizeUsers();
+
+const getPublicKey = (req: Request, res: Response, next: NextFunction) => {
     console.log("Lovely day today!");
     next();
 }
 
-export const insertNewUser = async (req: Request, res: Response, next: NextFunction) => {
-    console.log("The new user should be inserted into the database");
-    next();
+interface User {
+    uid: string;
+    name: string;
+    username: string;
+    email: string;
 }
 
-export const removeNewUser = async (req: Request, res: Response, next: NextFunction) => {
+const insertNewUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const newUser: User = {
+            uid: req.body.uid,
+            name: req.body.name,
+            username: req.body.username,
+            email: req.body.email
+        }
+        await authorizeUsers.addUser(newUser);
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+const removeNewUser = async (req: Request, res: Response, next: NextFunction) => {
     console.log("The new user should be removed from the database if there was an error with inserting");
     next();
 }
 
-export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     console.log("Delete a user from the database given the user's UUID");
     next();
 }
+
+export {
+    getPublicKey,
+    insertNewUser,
+    removeNewUser,
+    deleteUser
+};
