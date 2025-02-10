@@ -3,7 +3,7 @@ import Knex from "knex";
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
 
-class AuthorizeUsers {
+export class AuthorizeUsers {
     private knexUser: KnexType;
 
     constructor(knexInstance?: KnexType) {
@@ -46,5 +46,3 @@ class AuthorizeUsers {
         }
     }
 }
-
-export default AuthorizeUsers;
