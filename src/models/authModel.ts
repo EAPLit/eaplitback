@@ -1,19 +1,7 @@
+import { IUser, IUserShort } from '@interfaces/authInterfaces';
 import Knex from "knex";
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
-
-interface User {
-    uid: string;
-    name: string;
-    username: string;
-    email: string;
-};
-
-interface UserShort {
-    uid: string;
-    name: string;
-    username: string;
-};
 
 class AuthorizeUsers {
     private knexUser: KnexType;
@@ -22,7 +10,7 @@ class AuthorizeUsers {
         this.knexUser = knexInstance ?? Knex(config[process.env.NODE_ENV || "development"]);
     }
 
-    public async addUser(userData: User): Promise<void> {
+    public async addUser(userData: IUser): Promise<void> {
         try {
             await this.knexUser("users").insert({
                 id: userData.uid,
@@ -36,7 +24,7 @@ class AuthorizeUsers {
         }
     }
 
-    public async getUserByUID(userUID: string): Promise<{ userData: UserShort } | null> {
+    public async getUserByUID(userUID: string): Promise<{ userData: IUserShort } | null> {
         try {
             const response = await this.knexUser("users")
                 .select("name", "username")

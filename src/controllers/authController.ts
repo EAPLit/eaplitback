@@ -1,3 +1,4 @@
+import { IUser } from '@interfaces/authInterfaces';
 import { Request, Response, NextFunction } from "express";
 import AuthorizeUsers from "@models/authModel";
 import { v4 as uuidv4 } from "uuid";
@@ -9,16 +10,9 @@ const getPublicKey = (req: Request, res: Response, next: NextFunction) => {
     next();
 }
 
-interface User {
-    uid: string;
-    name: string;
-    username: string;
-    email: string;
-}
-
 const insertNewUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const newUser: User = {
+        const newUser: IUser = {
             uid: req.body.uid,
             name: req.body.name,
             username: req.body.username,
