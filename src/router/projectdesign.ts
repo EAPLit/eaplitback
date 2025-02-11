@@ -8,6 +8,7 @@ import { getCurrentText,
         updateLessonType,
         updateLessonName,
         deleteLesson,
+        deleteLessonAndTasks,
         addNewTaskFlow,
         updateTaskFlow,
         getTaskFlow

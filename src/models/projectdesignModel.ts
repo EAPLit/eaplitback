@@ -159,8 +159,23 @@ export class ProjectDesign {
                 .where({ lessonID })
                 .del()
         } catch (error) {
-            console.error("projectdesignModel.ts, deleteLesson, error deleting the the lesson.");
+            console.error("projectdesignModel.ts, deleteLesson, error deleting the lesson.");
             throw new Error("Failed to delete the lesson");
+        }
+    }
+
+    public async deleteLessonAndTasks(lessonID: string): Promise<void> {
+        try {
+            await this.knexUser("lessons")
+                .where({ lessonID })
+                .del()
+            
+            await this.knexUser("chosenTasks")
+                .where({ lessonID })
+                .del()
+        } catch (error) {
+            console.error("projectdesignModel.ts, deleteLessonAndTasks, error deleting the lesson and tasks.");
+            throw new Error("Failed to delete the lesson and tasks");
         }
     }
 
