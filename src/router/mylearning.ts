@@ -1,16 +1,17 @@
 import express, { Request, Response, Router } from 'express';
+import { startNewProject } from '@controllers/mylearningController';
 
 const mylearningRouter: Router = express.Router();
 
 
-mylearningRouter.get('/projectList', (req: Request, res: Response) => {
+mylearningRouter.get('/projectList/:userID', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
 
-mylearningRouter.post('/project', (req: Request, res: Response) => {
+mylearningRouter.post('/project/:userID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({ message: "success", project: res.locals.projectDetails });
 });
 
 export default mylearningRouter;
