@@ -49,9 +49,21 @@ const getLessonTypes = async (req: Request, res: Response, next: NextFunction) =
     } 
 }
 
+const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const taskTypes: ITaskTypes = await projectDesign.getTaskTypes();
+        res.locals.taskTypes = taskTypes;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 export {
     getCurrentText,
     updateCurrentText,
     getLessonsNames,
-    getLessonTypes
+    getLessonTypes,
+    getTaskTypes
 }
