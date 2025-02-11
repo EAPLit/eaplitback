@@ -1,4 +1,3 @@
-import { projectdesignRouter } from '@router/projectdesign';
 import express, { Request, Response, Router } from 'express';
 import { getCurrentText, updateCurrentText, deleteCurrentText } from '@controllers/projectdesignController';
 
