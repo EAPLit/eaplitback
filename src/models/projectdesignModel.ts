@@ -72,7 +72,7 @@ export class ProjectDesign {
     public async getLessonTypes(): Promise<ILessonTypes> {
         try {
             const lessonTypes: ILessonType[] = await this.knexUser("lessonTypes")
-                .select("lessonTypeID", "lessonTypeName")
+                .select("lessonTypeID", "typeName")
             return { lessonTypes: lessonTypes };
         } catch (error) {
             console.error("projectdesignModel.ts, getLessonsTypes, error getting the lessons types for your project: ", error);

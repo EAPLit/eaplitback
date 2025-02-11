@@ -41,6 +41,7 @@ const getLessonsNames = async (req: Request, res: Response, next: NextFunction) 
 const getLessonTypes = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lessonTypes: ILessonTypes = await projectDesign.getLessonTypes();
+        console.log(lessonTypes);
         res.locals.lessonTypes = lessonTypes;
         next();
     } catch (error) {

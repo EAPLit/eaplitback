@@ -1,7 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 import { getCurrentText, 
-    updateCurrentText, 
-    getLessonsNames } from '@controllers/projectdesignController';
+        updateCurrentText, 
+        getLessonsNames,
+        getLessonTypes,
+    } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
@@ -40,7 +42,7 @@ projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req
 /**
  * For <LessonTypes />
  */
-projectdesignRouter.get('/lessonTypes', (req: Request, res: Response) => {
+projectdesignRouter.get('/lessonTypes', getLessonTypes, (req: Request, res: Response) => {
 
     res.status(201).json({
         success: true,
