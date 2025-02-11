@@ -3,19 +3,6 @@ import express, { Request, Response, Router } from 'express';
 const projectdesignRouter: Router = express.Router();
 
 /**
- * For <ProjectTitle />
- */
-projectdesignRouter.post('/projectTitle/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-projectdesignRouter.patch('/projectTitle/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-/**
  * For <UploadText />
  */
 projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
