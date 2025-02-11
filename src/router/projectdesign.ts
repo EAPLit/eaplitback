@@ -3,7 +3,11 @@ import { getCurrentText,
         updateCurrentText, 
         getLessonsNames,
         getLessonTypes,
-        getTaskTypes
+        getTaskTypes,
+        addNewLesson,
+        updateLessonType,
+        updateLessonName,
+        addNewTaskFlow
     } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
@@ -65,19 +69,57 @@ projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request,
 });
 
 /**
+ * For <LessonDesignHead />
+ */
+projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', addNewLesson, (req: Request, res: Response) => {
+
+    res.status(201).json({
+        success: true,
+        message: "Successfully added a new lesson for the project of a specific lesson type.",
+        data: res.locals.newLesson
+    });
+});
+
+// For when the user changes their mind about which lesson type they want to do
+projectdesignRouter.patch('/lesson/:projectID/:lessonTypeID', updateLessonType, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated the lesson type for a lesson of this project",
+        data: res.locals.updatedLesson
+    });
+});
+
+// For when the user wants to change the name of the lesson
+projectdesignRouter.patch('/lesson/:lessonID', updateLessonName, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated the name of the lesson.",
+        data: res.locals.newLessonName
+    })
+})
+
+/**
  * For <TaskFlow />
  */
-projectdesignRouter.post('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.post('/taskFlow/:lessonID', addNewTaskFlow, (req: Request, res: Response) => {
+    // The req.body should contain an object of type IChosenTasks
+    res.status(201).json({
+        success: true,
+        message: "Successfully added your task flow"
+    });
+});
+
+projectdesignRouter.patch('/taskFlow/:lessonID', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
 
-projectdesignRouter.patch('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.get('/taskFlow/:lessonID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
-});
+    res.json({ });
+})
 
-projectdesignRouter.delete('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.delete('/taskFlow', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });

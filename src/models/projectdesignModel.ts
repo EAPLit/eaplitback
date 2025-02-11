@@ -1,4 +1,4 @@
-import { IText, ILesson, ILessons, ILessonType, ILessonTypes, ITaskType, ITaskTypes } from '@interfaces/projectInterfaces';
+import { IText, ILesson, ILessons, ILessonType, ILessonTypes, ITaskType, ITaskTypes, IChosenTasks, IChosenTask } from '@interfaces/projectInterfaces';
 import Knex from 'knex';
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
@@ -89,6 +89,87 @@ export class ProjectDesign {
         } catch (error) {
             console.error("projectdesignModel.ts, getTaskTypes, error getting the task types for the given lesson type: ", error);
             throw new Error("Failed to get the task types for the given lesson type in this app.");
+        }
+    }
+
+    /**
+     * LESSONS
+     */
+    public async addNewLesson(projectID: string, lessonTypeID: string): Promise<ILesson> {
+        try {
+            const newLesson: ILesson = await this.knexUser("lessons")
+                .insert(
+                    {
+                        lessonID: uuidv4(),
+                        lessonName: "New Lesson",
+                        projectID: projectID,
+                        lessonTypeID: lessonTypeID
+                    }
+                )
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if (!newLesson) {
+                return { lessonID: '', lessonName: '' }
+            }
+            return newLesson;
+        } catch (error) {
+            console.error("projectdesignModel.ts, addNewLesson, error adding a new lesson: ", error);
+            throw new Error("Failed to add a new lesson.");
+        }
+    }
+
+    public async updateLessonType(projectID: string, lessonTypeID: string): Promise<ILesson> {
+        try {
+            const updatedLesson: ILesson = await this.knexUser("lessons")
+                .where({ projectID })
+                .update({ lessonTypeID: lessonTypeID })
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if (!updatedLesson) {
+                return { lessonID: '', lessonName: '' };
+            }
+            return updatedLesson;
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateLessonType, error updating the lesson type id");
+            throw new Error("Failed to update the new lesson with a new lesson type.");
+        }
+    }
+
+    public async updateLessonName(lessonID: string, lessonName: string): Promise<ILesson> {
+        try {
+            const updatedLesson: ILesson = await this.knexUser("lessons")
+                .where({ lessonID })
+                .update({ lessonName: lessonName })
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if(!updatedLesson) {
+                return { lessonID: '', lessonName: '' };
+            }
+
+            return updatedLesson;
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateLessonName, error updating the lesson type id");
+            throw new Error("Failed to update the lesson with a new name.");
+        }
+    }
+    /**
+     * TASK FLOW
+     */
+
+    public async addNewTaskFlow(chosenTasks: IChosenTasks, lessonID: string): Promise<void> {
+        try {
+            await this.knexUser("chosenTasks")
+                .insert(
+                    chosenTasks.chosenTasks.map(task => ({
+                        chosenTaskID: uuidv4(),
+                        taskTypeID: task.taskTypeID,
+                        lessonID: lessonID,
+                        order: task.order
+                    }))
+                );
+        } catch (error) {
+            console.error("projectdesignModel.ts, addNewTaskFlow, error adding a new task flow: ", error);
+            throw new Error("Failed to add a new task flow");
         }
     }
 }

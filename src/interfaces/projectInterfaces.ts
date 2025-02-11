@@ -40,9 +40,12 @@ export interface ITaskTypes {
     taskTypes: ITaskType[];
 }
 
-export interface chosenTask {
+export interface IChosenTask {
     chosenTaskID: string;
-    lessonID: string;
     taskTypeID: string;
     order: number;
+}
+
+export interface IChosenTasks {
+    chosenTasks: IChosenTask[];
 }

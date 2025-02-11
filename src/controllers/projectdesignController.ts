@@ -60,10 +60,57 @@ const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+const addNewLesson = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const newLesson = await projectDesign.addNewLesson(req.params.projectID, req.params.lessonTypeID);
+        res.locals.newLesson = newLesson;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const updateLessonType = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const updatedLesson = await projectDesign.updateLessonType(req.params.projectID, req.params.lessonTypeID);
+        res.locals.updatedLesson = updatedLesson;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const updateLessonName = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const newLessonName = await projectDesign.updateLessonName(req.params.lessonID, req.body.lessonName);
+        res.locals.newLessonName = newLessonName;
+        next();
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const addNewTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.addNewTaskFlow(req.body.chosenTasks, req.params.lessonID);
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 export {
     getCurrentText,
     updateCurrentText,
     getLessonsNames,
     getLessonTypes,
-    getTaskTypes
+    getTaskTypes,
+    addNewLesson,
+    updateLessonType,
+    updateLessonName,
+    addNewTaskFlow
 }
