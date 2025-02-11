@@ -1,44 +1,26 @@
 import express, { Request, Response, Router } from 'express';
+import { getCurrentText, updateCurrentText } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
 /**
- * For <ProjectTitle />
+ * For <UploadText /> and <TextDisplay />
  */
-projectdesignRouter.post('/projectTitle/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
+projectdesignRouter.get('/text/:textID', getCurrentText, (req: Request, res: Response) => {
+    res.status(201).json({ 
+        success: true, 
+        message: "Successfully retrieved the text for your project.", 
+        data: res.locals.currentText
+    });
 });
 
-projectdesignRouter.patch('/projectTitle/:projectID', (req: Request, res: Response) => {
+projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
-});
-
-/**
- * For <UploadText />
- */
-projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-/**
- * For <TextDisplay />
- */
-projectdesignRouter.get('/text/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-projectdesignRouter.patch('/text/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-projectdesignRouter.delete('/text/:projectID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated the text for your project.",
+        data: res.locals.updatedText
+    });
 });
 
 /**
