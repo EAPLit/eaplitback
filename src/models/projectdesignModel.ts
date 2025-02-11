@@ -1,4 +1,4 @@
-import { IText, ILesson, ILessons, ILessonType, ILessonTypes } from '@interfaces/projectInterfaces';
+import { IText, ILesson, ILessons, ILessonType, ILessonTypes, ITaskType, ITaskTypes } from '@interfaces/projectInterfaces';
 import Knex from 'knex';
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
@@ -75,8 +75,20 @@ export class ProjectDesign {
                 .select("lessonTypeID", "lessonTypeName")
             return { lessonTypes: lessonTypes };
         } catch (error) {
-            console.error("projectdesignModel.ts, getLessonsTypes, error getting the lessons types for your project: ", error);
+            console.error("projectdesignModel.ts, getLessonTypes, error getting the lessons types for your project: ", error);
             throw new Error("Failed to get the types of lessons available in this app.");
+        }
+    }
+
+    public async getTaskTypes(lessonTypeID: string): Promise<ITaskTypes> {
+        try {
+            const taskTypes: ITaskType[] = await this.knexUser("taskTypes")
+                .select("taskTypeID", "taskTypeName")
+                .where("lessonTypeID", lessonTypeID)
+            return { taskTypes: taskTypes };
+        } catch (error) {
+            console.error("projectdesignModel.ts, getTaskTypes, error getting the task types for the given lesson type: ", error);
+            throw new Error("Failed to get the task types for the given lesson type in this app.");
         }
     }
 }
