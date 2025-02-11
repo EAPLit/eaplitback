@@ -118,11 +118,17 @@ export class ProjectDesign {
         }
     }
 
-    public async updateLessonType(projectID: string, lessonTypeID: string): Promise<void> {
+    public async updateLessonType(projectID: string, lessonTypeID: string): Promise<ILesson> {
         try {
-            await this.knexUser("lessons")
+            const updatedLesson: ILesson = await this.knexUser("lessons")
                 .where({ projectID })
-                .update({ lessonTypeID: lessonTypeID });
+                .update({ lessonTypeID: lessonTypeID })
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if (!updatedLesson) {
+                return { lessonID: '', lessonName: '' };
+            }
+            return updatedLesson;
         } catch (error) {
             console.error("projectdesignModel.ts, updateLessonType, error updating the lesson type id");
             throw new Error("Failed to update the new lesson with a new lesson type.");

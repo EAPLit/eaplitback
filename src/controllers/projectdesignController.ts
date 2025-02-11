@@ -73,7 +73,8 @@ const addNewLesson = async (req: Request, res: Response, next: NextFunction) => 
 
 const updateLessonType = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        await projectDesign.updateLessonType(req.params.projectID, req.params.lessonTypeID);
+        const updatedLesson = await projectDesign.updateLessonType(req.params.projectID, req.params.lessonTypeID);
+        res.locals.updatedLesson = updatedLesson;
         next();
     } catch (error) {
         console.error(error);

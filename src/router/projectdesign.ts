@@ -84,7 +84,8 @@ projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', addNewLesson, (req:
 projectdesignRouter.patch('/lesson/:projectID/:lessonTypeID', updateLessonType, (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
-        message: "Successfully updated the lesson type for a lesson of this project"
+        message: "Successfully updated the lesson type for a lesson of this project",
+        data: res.locals.updatedLesson
     });
 });
 
