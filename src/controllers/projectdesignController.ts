@@ -1,4 +1,4 @@
-import { IText } from '@interfaces/projectInterfaces';
+import { IText, ILessons } from '@interfaces/projectInterfaces';
 import { ProjectDesign } from '@models/projectdesignModel';
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +27,19 @@ const updateCurrentText = async (req: Request, res: Response, next: NextFunction
     }
 }
 
+const getLessonsNames = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lessonsNames: ILessons = await projectDesign.getLessonsNames(req.params.projectID);
+        res.locals.lessonsNames = lessonsNames;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 export {
     getCurrentText,
-    updateCurrentText
+    updateCurrentText,
+    getLessonsNames
 }

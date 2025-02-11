@@ -50,15 +50,15 @@ export class ProjectDesign {
     /**
      * LESSON NAMES
      */
-    public async getLessonsNames(projectID): Promise<ILessons> {
+    public async getLessonsNames(projectID: string): Promise<ILessons> {
         try {
-            const lessonNames: ILesson[] = await this.knexUser("lessons")
+            const lessonsNames: ILesson[] = await this.knexUser("lessons")
                 .select("lessonID", "lessonName")
                 .where("projecID", projectID)
-            if(lessonNames.length === 0) {
+            if(lessonsNames.length === 0) {
                 return { "lessons": [] };
             }
-            return lessonNames;
+            return { lessons: lessonsNames };
         } catch (error) {
             console.error("projectdesignModel.ts, getLessonsNames, error getting the lessons names for your project: ", error);
             throw new Error("Failed to get the names of your lessons in this project.");
