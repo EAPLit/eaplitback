@@ -1,7 +1,7 @@
 export interface IProject {
-    projectID: number;
+    projectID: string;
     projectName: string;
-    textID: number;
+    textID: string;
 }
 
 export interface IProjects {
@@ -9,12 +9,12 @@ export interface IProjects {
 }
 
 export interface IText {
-    textID: number;
+    textID: string;
     text: string;
 }
 
 export interface ILesson {
-    lessonID: number;
+    lessonID: string;
     lessonName: string;
 }
 
@@ -23,7 +23,7 @@ export interface ILessons {
 }
 
 export interface ILessonType {
-    lessonTypeID: number;
+    lessonTypeID: string;
     lessonTypeName: string;
 }
 
@@ -32,7 +32,7 @@ export interface ILessonTypes {
 }
 
 export interface ITaskType {
-    taskTypeID: number;
+    taskTypeID: string;
     taskTypeName: string;
 }
 
@@ -41,8 +41,8 @@ export interface ITaskTypes {
 }
 
 export interface chosenTask {
-    chosenTaskID: number;
-    lessonID: number;
-    taskTypeID: number;
+    chosenTaskID: string;
+    lessonID: string;
+    taskTypeID: string;
     order: number;
 }
