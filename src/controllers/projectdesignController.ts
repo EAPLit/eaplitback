@@ -29,6 +29,5 @@ const updateCurrentText = async (req: Request, res: Response, next: NextFunction
 
 export {
     getCurrentText,
-    updateCurrentText,
-    deleteCurrentText
+    updateCurrentText
 }

@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import { getCurrentText, updateCurrentText, deleteCurrentText } from '@controllers/projectdesignController';
+import { getCurrentText, updateCurrentText } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
