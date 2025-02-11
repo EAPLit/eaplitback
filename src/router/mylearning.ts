@@ -1,4 +1,4 @@
-import express { Express, Response, Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 
 const mylearningRouter: Router = express.Router();
 

@@ -1,6 +1,6 @@
-import express, { Request, Response, Express } from 'express';
+import express, { Request, Response, Router } from 'express';
 
-projectdesignRouter: Router = express.Router();
+const projectdesignRouter: Router = express.Router();
 
 /**
  * For <ProjectTitle />

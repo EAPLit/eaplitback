@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "start": "npm run migrate-latest && node dist/src/index.js",
+    "start": "npm run migrate-latest && npm run seed && node dist/src/index.js",
     "dev": "nodemon -r tsconfig-paths/register src/index.ts",
     "migrate-up": "ts-node knexfile.ts && knex migrate:up --knexfile knexfile.ts",
     "migrate-latest": "ts-node knexfile.ts && knex migrate:latest --debug --knexfile knexfile.ts",
