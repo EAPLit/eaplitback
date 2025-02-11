@@ -6,7 +6,7 @@ const mylearningRouter: Router = express.Router();
 
 mylearningRouter.get('/projectList/:userID', getCurrentProjects, (req: Request, res: Response) => {
     if (res.locals.projectsList.length === 0) {
-        res.status(204).json({ success: false, message: "You have no projects made yet.", data: res.locals.projectsList });
+        res.status(404).json({ success: false, message: "You have no projects made yet.", data: res.locals.projectsList });
     } else {
         res.status(201).json({ success: true, message: "Successfully retrieved your projects.", data: res.locals.projectsList });
     }
@@ -22,7 +22,7 @@ mylearningRouter.post('/project/:userID', startNewProject, (req: Request, res: R
  */
 mylearningRouter.patch('/project/:projectID', updateProjectName, (req: Request, res: Response) => {
     if (res.locals.updatedProject.length === 0) {
-        res.status(204).json({ success: false, message: "Project not found.", data: res.locals.updatedProject });
+        res.status(404).json({ success: false, message: "Project not found.", data: res.locals.updatedProject });
     } else {
         res.status(201).json({ success: true, message: "Project name successfully updated.", data: res.locals.updatedProject });
     }
