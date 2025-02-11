@@ -13,17 +13,17 @@ projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
 /**
  * For <TextDisplay />
  */
-projectdesignRouter.get('/text/:projectID', (req: Request, res: Response) => {
+projectdesignRouter.get('/text/:textID', (req: Request, res: Response) => {
 
-    res.status(201.json({ success: true, message: "Successfully retrieved the text for your project." });
+    res.status(201).json({ success: true, message: "Successfully retrieved the text for your project." });
 });
 
-projectdesignRouter.patch('/text/:projectID', (req: Request, res: Response) => {
+projectdesignRouter.patch('/text/:textID', (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Successfully updated the text for your project." });
 });
 
-projectdesignRouter.delete('/text/:projectID', (req: Request, res: Response) => {
+projectdesignRouter.delete('/text/:textID', (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Successfully deleted the text in your project." });
 });
