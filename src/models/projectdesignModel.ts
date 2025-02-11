@@ -43,16 +43,4 @@ export class ProjectDesign {
         }
         
     }
-
-    public async deleteCurrentText(textID: string): Promise<boolean> {
-        try {
-            const deletedRows: number = await this.knexUser("texts")
-                .where("textID", textID)
-                .del();
-            return deletedRows > 0; // Returns true if at least 1 row was deleted.
-        } catch (error) {
-            console.error("projectdesignModel.ts, deleteCurrentText, error deleting the text for your project:", error);
-            throw new Error("Failed to delete the text for your project.");
-        }
-    }
 }
