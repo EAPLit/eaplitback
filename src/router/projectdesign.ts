@@ -30,7 +30,7 @@ projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res
  */
 projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req: Request, res: Response) => {
 
-    res.json({
+    res.status(201).json({
         success: true,
         message: "Successfully retrieved the names of the lessons",
         data: res.locals.lessonsNames
@@ -42,7 +42,7 @@ projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req
  */
 projectdesignRouter.get('/lessonTypes', (req: Request, res: Response) => {
 
-    res.json({
+    res.status(201).json({
         success: true,
         message: "Successfully retrieved the types of lessons available in this app.",
         data: res.locals.lessonTypes
