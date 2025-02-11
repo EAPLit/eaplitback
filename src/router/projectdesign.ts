@@ -42,7 +42,11 @@ projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req
  */
 projectdesignRouter.get('/lessonTypes', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.json({
+        success: true,
+        message: "Successfully retrieved the types of lessons available in this app.",
+        data: res.locals.lessonTypes
+    });
 });
 
 /**
