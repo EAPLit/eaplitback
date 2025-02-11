@@ -184,4 +184,28 @@ export class ProjectDesign {
             throw new Error("Failed to add a new task flow");
         }
     }
+
+    public async updateTaskFlow(chosenTasks: IChosenTasks, lessonID; string): Promise<void> {
+        // Because the user might add or remove tasks, the strategy here is to delete all the
+        // tasks associated with the lessonID from the database
+        // then add the new ones
+        try {
+            await this.knexUser("chosenTasks")
+                .where({ lessonID })
+                .del()
+
+            await this.knexUser("chosenTasks")
+                .insert(
+                    chosenTasks.chosenTasks.map(task => ({
+                        chosenTask: uujidv4(),
+                        taskTypeID: task.taskTypeID,
+                        lessonID: lessonID,
+                        order: task.order
+                    }))
+                );
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateTaskFlow, error updating a task flow: ", error);
+            throw new Error("Failed to update a task flow");
+        }
+    }
 }
