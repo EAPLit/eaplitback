@@ -74,7 +74,7 @@ projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', (req: Request, res:
         success: true,
         message: "Successfully added a new lesson for the project of a specific lesson type."
     })
-})
+});
 
 /**
  * For <TaskFlow />

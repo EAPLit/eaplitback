@@ -93,6 +93,26 @@ export class ProjectDesign {
     }
 
     /**
+     * LESSONS
+     */
+    public async addNewLesson(projectID: string, lessonTypeID: string): Promise<void> {
+        try {
+            await this.knexUser("lessons")
+                .insert(
+                    {
+                        lessonID: uuidv4(),
+                        lessonName: "New Lesson",
+                        projectID: projectID,
+                        lessonTypeID: lessonTypeID
+                    }
+                );
+        } catch (error) {
+            console.error("projectdesignModel.ts, addNewLesson, error adding a new lesson: ", error);
+            throw new Error("Failed to add a new lesson.");
+        }
+    }
+
+    /**
      * TASK FLOW
      */
 

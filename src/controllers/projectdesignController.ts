@@ -60,6 +60,16 @@ const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+const addNewLesson = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.addNewLesson(req.params.projectID, req.params.lessonTypeID)
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 const addNewTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await projectDesign.addNewTaskFlow(req.body.chosenTasks, req.params.lessonID);
@@ -76,5 +86,6 @@ export {
     getLessonsNames,
     getLessonTypes,
     getTaskTypes,
+    addNewLesson,
     addNewTaskFlow
 }
