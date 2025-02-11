@@ -5,12 +5,11 @@ const mylearningRouter: Router = express.Router();
 
 
 mylearningRouter.get('/projectList/:userID', (req: Request, res: Response) => {
-
+    
     res.json({ message: "success" });
 });
 
-mylearningRouter.post('/project/:userID', (req: Request, res: Response) => {
-
+mylearningRouter.post('/project/:userID', startNewProject, (req: Request, res: Response) => {
     res.status(201).json({ message: "success", project: res.locals.projectDetails });
 });
 

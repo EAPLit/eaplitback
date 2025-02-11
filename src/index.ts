@@ -5,6 +5,7 @@ import cors from 'cors';
 dotenv.config();
 
 import authRouter from "@router/auth";
+import mylearningRouter from "@router/mylearning";
 
 const app: Express = express();
 
@@ -21,6 +22,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/auth", authRouter);
+app.use("/mylearning", mylearningRouter);
 
 console.log("Front end URL from env: ", process.env.FRONTEND_URL);
 
