@@ -1,29 +1,23 @@
+import { projectdesignRouter } from '@router/projectdesign';
 import express, { Request, Response, Router } from 'express';
+import { getCurrentText, updateCurrentText, deleteCurrentText } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
 /**
- * For <UploadText />
+ * For <UploadText /> and <TextDisplay />
  */
-projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
-
-    res.status(201).json({ success: true, message: "Successfully added a new text to your project." });
-});
-
-/**
- * For <TextDisplay />
- */
-projectdesignRouter.get('/text/:textID', (req: Request, res: Response) => {
+projectdesignRouter.get('/text/:textID', getCurrentText, (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Successfully retrieved the text for your project." });
 });
 
-projectdesignRouter.patch('/text/:textID', (req: Request, res: Response) => {
+projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Successfully updated the text for your project." });
 });
 
-projectdesignRouter.delete('/text/:textID', (req: Request, res: Response) => {
+projectdesignRouter.delete('/text/:textID', deleteCurrentText, (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Successfully deleted the text in your project." });
 });
