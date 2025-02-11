@@ -7,9 +7,9 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Inserts seed entries
     await knex("lessonTypes").insert([
-        { lessonTypeID: uuidv4(), typeName: "Summary Writing" },
-        { lessonTypeID: uuidv4(), typeName: "Paragraph Writing" },
-        { lessonTypeID: uuidv4(), typeName: "Essay Writing" },
-        { lessonTypeID: uuidv4(), typeName: "Sentence Structures" },
+        { lessonTypeID: uuidv4(), lessonTypeName: "Summary Writing" },
+        { lessonTypeID: uuidv4(), lessonTypeName: "Paragraph Writing" },
+        { lessonTypeID: uuidv4(), lessonTypeName: "Essay Writing" },
+        { lessonTypeID: uuidv4(), lessonTypeName: "Sentence Structures" },
     ]);
 };
