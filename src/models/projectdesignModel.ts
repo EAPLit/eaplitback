@@ -1,4 +1,4 @@
-import { IText, ILesson, ILessons, ILessonType, ILessonTypes, ITaskType, ITaskTypes } from '@interfaces/projectInterfaces';
+import { IText, ILesson, ILessons, ILessonType, ILessonTypes, ITaskType, ITaskTypes, IChosenTasks, IChosenTask } from '@interfaces/projectInterfaces';
 import Knex from 'knex';
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
@@ -89,6 +89,27 @@ export class ProjectDesign {
         } catch (error) {
             console.error("projectdesignModel.ts, getTaskTypes, error getting the task types for the given lesson type: ", error);
             throw new Error("Failed to get the task types for the given lesson type in this app.");
+        }
+    }
+
+    /**
+     * TASK FLOW
+     */
+
+    public async addNewTaskFlow(chosenTasks: IChosenTasks): Promise<void> {
+        try {
+            await this.knexUser("chosenTasks")
+                .insert(
+                    chosenTasks.chosenTasks.map(task => ({
+                        chosenTaskID: uuidv4(),
+                        taskTypeID: task.taskTypeID,
+                        lessonID: task.lessonID,
+                        order: task.order
+                    }))
+                );
+        } catch (error) {
+            console.error("projectdesignModel.ts, addNewTaskFlow, error adding a new task flow: ", error);
+            throw new Error("Failed to add a new task flow");
         }
     }
 }

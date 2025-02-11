@@ -67,17 +67,22 @@ projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request,
 /**
  * For <TaskFlow />
  */
-projectdesignRouter.post('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.post('/taskFlow', (req: Request, res: Response) => {
+    // The req.body should contain an object of type IChosenTasks
+    res.json({ message: "success" });
+});
+
+projectdesignRouter.patch('/taskFlow', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
 
-projectdesignRouter.patch('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.get('/taskFlow', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
-});
+    res.json({ });
+})
 
-projectdesignRouter.delete('/taskFlow/:lessonID/:order', (req: Request, res: Response) => {
+projectdesignRouter.delete('/taskFlow', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
