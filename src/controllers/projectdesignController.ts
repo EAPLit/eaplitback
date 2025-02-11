@@ -88,7 +88,17 @@ const updateLessonName = async (req: Request, res: Response, next: NextFunction)
         res.locals.newLessonName = newLessonName;
         next();
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const deleteLesson = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.deleteLesson(req.params.lessonID)
+        next();
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
@@ -112,5 +122,6 @@ export {
     addNewLesson,
     updateLessonType,
     updateLessonName,
+    deleteLesson,
     addNewTaskFlow
 }
