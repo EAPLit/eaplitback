@@ -12,14 +12,14 @@ export class ProjectDesign {
     }
 
     public async getCurrentText(textId: string): Promise<IText> {
-        
+
     }
 
     public async updateCurrentText(textID: string): Promise<void> {
 
     }
 
-    public async deleteText(textID: string): Promise<void> {
+    public async deleteCurrentText(textID: string): Promise<void> {
 
     }
 }
