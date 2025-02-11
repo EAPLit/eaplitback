@@ -47,6 +47,10 @@ export class MyLearning {
                 .select("projectID", "projectName", "textID")
                 .where("userID", userID)
 
+            if (response.length === 0) {
+                return { projects: [] };
+            }
+
             return { projects: response };
         } catch (error) {
             console.error("mylearningModel.ts, getProjectList, error getting the list of projects for the user: ", error);
