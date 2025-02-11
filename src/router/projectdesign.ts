@@ -3,6 +3,7 @@ import { getCurrentText,
         updateCurrentText, 
         getLessonsNames,
         getLessonTypes,
+        getTaskTypes
     } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
@@ -54,7 +55,7 @@ projectdesignRouter.get('/lessonTypes', getLessonTypes, (req: Request, res: Resp
 /**
  * For <TaskTypes />
  */
-projectdesignRouter.get('/taskTypes/:lessonTypeID', (req: Request, res: Response) => {
+projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request, res: Response) => {
 
     res.status(201).json({
         success: true,
