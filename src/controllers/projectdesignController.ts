@@ -60,10 +60,21 @@ const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+const addNewTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.addNewTaskFlow(req.body.chosenTasks);
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 export {
     getCurrentText,
     updateCurrentText,
     getLessonsNames,
     getLessonTypes,
-    getTaskTypes
+    getTaskTypes,
+    addNewTaskFlow
 }
