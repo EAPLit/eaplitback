@@ -66,6 +66,17 @@ projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request,
 });
 
 /**
+ * For <LessonDesignHead />
+ */
+projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', (req: Request, res: Response) => {
+
+    res.status(201).json({
+        success: true,
+        message: "Successfully added a new lesson for the project of a specific lesson type."
+    })
+})
+
+/**
  * For <TaskFlow />
  */
 projectdesignRouter.post('/taskFlow/:lessonID', addNewTaskFlow, (req: Request, res: Response) => {
