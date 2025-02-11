@@ -17,7 +17,6 @@ export class ProjectDesign {
                 .select("textID", "text")
                 .where("textID", textID)
             const text: IText = textRow[0];
-
             return text;
         } catch (error) {
             console.error("projectdesignModel.ts, getCurrentText, error getting the text for the project: ", error);

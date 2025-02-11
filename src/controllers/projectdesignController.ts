@@ -7,7 +7,7 @@ const projectDesign = new ProjectDesign();
 
 const getCurrentText = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const currentText: IText = await getCurrentText(req.params.textID)
+        const currentText: IText = await projectDesign.getCurrentText(req.params.textID)
         res.locals.currenText = currentText;
         next();
     } catch (error) {
@@ -18,7 +18,7 @@ const getCurrentText = async (req: Request, res: Response, next: NextFunction) =
 
 const updateCurrentText = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        await updateCurrentText(req.params.textID, req.body.text);
+        await projectDesign.updateCurrentText(req.params.textID, req.body.text);
         next();
     } catch(error) {
         console.error(error);
@@ -28,7 +28,7 @@ const updateCurrentText = async (req: Request, res: Response, next: NextFunction
 
 const deleteCurrentText = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const status: boolean = await deleteCurrentText(req.params.textID);
+        const status: boolean = await projectDesign.deleteCurrentText(req.params.textID);
         res.locals.status = status;
         next();
     } catch(error) {
