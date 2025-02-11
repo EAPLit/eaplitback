@@ -8,7 +8,10 @@ import { getCurrentText,
         updateLessonType,
         updateLessonName,
         deleteLesson,
-        addNewTaskFlow
+        deleteLessonAndTasks,
+        addNewTaskFlow,
+        updateTaskFlow,
+        getTaskFlow
     } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
@@ -99,12 +102,20 @@ projectdesignRouter.patch('/lesson/:lessonID', updateLessonName, (req: Request, 
     })
 });
 
-// For whent he user wants to cancel creating a lesson midway through the lesson
+// For when the user wants to cancel creating a lesson midway through the lesson
 projectdesignRouter.delete('/lesson/:lessonID', deleteLesson, (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
-        message: "Successfully deleted the lesson"
+        message: "Successfully deleted the lesson."
     });
+});
+
+// For when the user wants to delete the lesson entirely, including the task flow (after the task flow has been set)
+projectdesignRouter.delete('/lesson/:lessonID/taskFlow', deleteLessonAndTasks, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Entire lesson successfully deleted, including all the tasks."
+    })
 });
 
 /**
@@ -119,13 +130,20 @@ projectdesignRouter.post('/taskFlow/:lessonID', addNewTaskFlow, (req: Request, r
 });
 
 projectdesignRouter.patch('/taskFlow/:lessonID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
+    // The req.body should contain an object of type IChosenTasks
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated your task flow"
+    });
 });
 
 projectdesignRouter.get('/taskFlow/:lessonID', (req: Request, res: Response) => {
 
-    res.json({ });
+    res.status(201).json({
+        success: true,
+        message: "Successfully retrieved the task flow for this lesson",
+        data: res.locals.taskFlow
+    });
 })
 
 projectdesignRouter.delete('/taskFlow', (req: Request, res: Response) => {

@@ -159,8 +159,23 @@ export class ProjectDesign {
                 .where({ lessonID })
                 .del()
         } catch (error) {
-            console.error("projectdesignModel.ts, deleteLesson, error deleting the the lesson.");
+            console.error("projectdesignModel.ts, deleteLesson, error deleting the lesson.");
             throw new Error("Failed to delete the lesson");
+        }
+    }
+
+    public async deleteLessonAndTasks(lessonID: string): Promise<void> {
+        try {
+            await this.knexUser("lessons")
+                .where({ lessonID })
+                .del()
+            
+            await this.knexUser("chosenTasks")
+                .where({ lessonID })
+                .del()
+        } catch (error) {
+            console.error("projectdesignModel.ts, deleteLessonAndTasks, error deleting the lesson and tasks.");
+            throw new Error("Failed to delete the lesson and tasks");
         }
     }
 
@@ -182,6 +197,42 @@ export class ProjectDesign {
         } catch (error) {
             console.error("projectdesignModel.ts, addNewTaskFlow, error adding a new task flow: ", error);
             throw new Error("Failed to add a new task flow");
+        }
+    }
+
+    public async updateTaskFlow(chosenTasks: IChosenTasks, lessonID: string): Promise<void> {
+        // Because the user might add or remove tasks, the strategy here is to delete all the
+        // tasks associated with the lessonID from the database
+        // then add the new ones
+        try {
+            await this.knexUser("chosenTasks")
+                .where({ lessonID })
+                .del()
+
+            await this.knexUser("chosenTasks")
+                .insert(
+                    chosenTasks.chosenTasks.map(task => ({
+                        chosenTask: uuidv4(),
+                        taskTypeID: task.taskTypeID,
+                        lessonID: lessonID,
+                        order: task.order
+                    }))
+                );
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateTaskFlow, error updating a task flow: ", error);
+            throw new Error("Failed to update a task flow");
+        }
+    }
+
+    public async getTaskFlow(lessonID: string): Promise<IChosenTasks> {
+        try {
+            const taskFlow: IChosenTask[] = await this.knexUser("chosenTasks")
+                .select("chosenTaskID", "taskTypeID", "order")
+                .where("lessonID", lessonID);
+            return { chosenTasks: taskFlow };
+        } catch (error) {
+            console.error("projectdesignModel.ts, getTaskFlow, error getting your task flow: ", error);
+            throw new Error("Failed to get your task flow");
         }
     }
 }

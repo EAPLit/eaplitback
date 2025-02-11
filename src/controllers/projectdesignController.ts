@@ -103,9 +103,40 @@ const deleteLesson = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+const deleteLessonAndTasks = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.deleteLessonAndTasks(req.params.lessonID)
+        next()
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 const addNewTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await projectDesign.addNewTaskFlow(req.body.chosenTasks, req.params.lessonID);
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const updateTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await projectDesign.updateTaskFlow(req.body.chosenTasks, req.params.lessonID);
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const getTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const taskFlow = await projectDesign.getTaskFlow(req.params.lessonID);
+        res.locals.taskFlow = taskFlow;
         next();
     } catch (error) {
         console.error(error);
@@ -123,5 +154,8 @@ export {
     updateLessonType,
     updateLessonName,
     deleteLesson,
-    addNewTaskFlow
+    deleteLessonAndTasks,
+    addNewTaskFlow,
+    updateTaskFlow,
+    getTaskFlow
 }
