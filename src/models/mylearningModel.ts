@@ -57,4 +57,23 @@ export class MyLearning {
             throw new Error("Failed to get projects");
         }
     }
+
+    public async updateProjectName(projectID: string, newProjectName: string): Promise<IProject | undefined> {
+        try {
+            const updatedProject: IProject | undefined = await this.knexUser("projects")
+                .where({ projectID })
+                .update({ projectName: newProjectName })
+                .returning(["projectID", "projectName", "textID"])
+                .then(rows => rows[0]);
+
+            if (!updatedProject) {
+                return { projectID: '', projectName: '', textID: '' };
+            }
+
+            return updatedProject;
+        } catch (error) {
+            console.error("mylearningModel.ts, updateProjectName, error updating the project name: ", error);
+            throw new Error("Failed to update the project name.");
+        }
+    }
 }

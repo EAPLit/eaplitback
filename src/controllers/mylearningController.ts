@@ -12,7 +12,7 @@ const startNewProject = async (req: Request, res: Response, next: NextFunction) 
         next();
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
 
@@ -23,11 +23,23 @@ const getCurrentProjects = async (req: Request, res: Response, next: NextFunctio
         next();
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+const updateProjectName = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const updatedProject: IProject | undefined = await myLearning.updateProjectName(req.params.projectID, req.body.newProjectName);
+        res.locals.updatedProject = updatedProject;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
 
 export {
     startNewProject,
-    getCurrentProjects
+    getCurrentProjects,
+    updateProjectName
 };
