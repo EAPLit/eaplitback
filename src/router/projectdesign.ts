@@ -8,7 +8,7 @@ const projectdesignRouter: Router = express.Router();
  */
 projectdesignRouter.get('/text/:textID', getCurrentText, (req: Request, res: Response) => {
 
-    res.status(201).json({ success: true, message: "Successfully retrieved the text for your project." });
+    res.status(201).json({ success: true, message: "Successfully retrieved the text for your project.", data: res.locals.currentText });
 });
 
 projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res: Response) => {
@@ -17,8 +17,11 @@ projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res
 });
 
 projectdesignRouter.delete('/text/:textID', deleteCurrentText, (req: Request, res: Response) => {
-
-    res.status(201).json({ success: true, message: "Successfully deleted the text in your project." });
+    if(res.locals.status === false) {
+        res.status(404).json({ success: false, message: "Your text could not be deleted." });
+    } else {
+        res.status(204).json({ success: true, message: "Successfully deleted the text in your project." });
+    }
 });
 
 /**
