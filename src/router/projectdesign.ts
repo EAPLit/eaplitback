@@ -56,7 +56,11 @@ projectdesignRouter.get('/lessonTypes', getLessonTypes, (req: Request, res: Resp
  */
 projectdesignRouter.get('/taskTypes/:lessonTypeID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({
+        success: true,
+        message: "Successfully retrieved the task types for this lesson type.",
+        data: res.locals.taskTypes
+    });
 });
 
 /**

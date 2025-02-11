@@ -1,4 +1,4 @@
-import { IText, ILessons, ILessonTypes } from '@interfaces/projectInterfaces';
+import { IText, ILessons, ILessonTypes, ITaskTypes, } from '@interfaces/projectInterfaces';
 import { ProjectDesign } from '@models/projectdesignModel';
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from "uuid";
@@ -51,7 +51,7 @@ const getLessonTypes = async (req: Request, res: Response, next: NextFunction) =
 
 const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const taskTypes: ITaskTypes = await projectDesign.getTaskTypes();
+        const taskTypes: ITaskTypes = await projectDesign.getTaskTypes(req.params.lessonTypeID);
         res.locals.taskTypes = taskTypes;
         next();
     } catch (error) {
