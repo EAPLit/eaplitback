@@ -101,12 +101,20 @@ projectdesignRouter.patch('/lesson/:lessonID', updateLessonName, (req: Request, 
     })
 });
 
-// For whent he user wants to cancel creating a lesson midway through the lesson
+// For when the user wants to cancel creating a lesson midway through the lesson
 projectdesignRouter.delete('/lesson/:lessonID', deleteLesson, (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
-        message: "Successfully deleted the lesson"
+        message: "Successfully deleted the lesson."
     });
+});
+
+// For when the user wants to delete the lesson entirely, including the task flow (after the task flow has been set)
+projectdesignRouter.delete('/lesson/:lessonID/taskFlow', deleteLessonAndTasks, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Entire lesson successfully deleted, including all the tasks."
+    })
 });
 
 /**
