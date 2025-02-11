@@ -7,7 +7,7 @@ const projectdesignRouter: Router = express.Router();
  */
 projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({ success: true, message: "Successfully added a new text to your project." });
 });
 
 /**
@@ -15,17 +15,17 @@ projectdesignRouter.post('/text/:projectID', (req: Request, res: Response) => {
  */
 projectdesignRouter.get('/text/:projectID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201.json({ success: true, message: "Successfully retrieved the text for your project." });
 });
 
 projectdesignRouter.patch('/text/:projectID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({ success: true, message: "Successfully updated the text for your project." });
 });
 
 projectdesignRouter.delete('/text/:projectID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({ success: true, message: "Successfully deleted the text in your project." });
 });
 
 /**
