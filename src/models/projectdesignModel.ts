@@ -1,4 +1,4 @@
-import { IText, ILesson, ILessons } from '@interfaces/projectInterfaces';
+import { IText, ILesson, ILessons, ILessonType, ILessonTypes } from '@interfaces/projectInterfaces';
 import Knex from 'knex';
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
