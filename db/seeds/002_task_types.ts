@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 export async function seed(knex: Knex): Promise<void> {
     // Fetch the lessonTypeIDs for the lesson types
     const lessonTypes = await knex("lessonTypes")
-        .select("lessonTypeID", "typeName")
-        .whereIn("typeName", ["Summary Writing", "Paragraph Writing", "Essay Writing", "Sentence Structures"]);
+        .select("lessonTypeID", "lessonTypeName")
+        .whereIn("lessonTypeName", ["Summary Writing", "Paragraph Writing", "Essay Writing", "Sentence Structures"]);
 
     /**
      * lessonTypes will look like this
@@ -23,7 +23,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Map lesson types to their corresponding IDs
     const lessonTypeMap = lessonTypes.reduce<Record<string, string>>((acc, lesson) => {
-        acc[lesson.typeName] = lesson.lessonTypeID;
+        acc[lesson.lessonTypeName] = lesson.lessonTypeID;
         return acc;
     }, {});
 
