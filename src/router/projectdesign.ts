@@ -28,7 +28,11 @@ projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res
  */
 projectdesignRouter.get('/projectLessonsNames/:projectID', (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.json({
+        success: true,
+        message: "Successfully retrieved the names of the lessons",
+        data: res.locals.lessonsNames
+    });
 });
 
 /**
