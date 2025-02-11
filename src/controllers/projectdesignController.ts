@@ -123,6 +123,17 @@ const updateTaskFlow = async (req: Request, res: Response, next: NextFunction) =
     }
 }
 
+const getTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const taskFlow = await projectDesign.getTaskFlow(req.params.lessonID);
+        res.locals.taskFlow = taskFlow;
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 export {
     getCurrentText,
     updateCurrentText,
@@ -134,5 +145,6 @@ export {
     updateLessonName,
     deleteLesson,
     addNewTaskFlow,
-    updateTaskFlow
+    updateTaskFlow,
+    getTaskFlow
 }

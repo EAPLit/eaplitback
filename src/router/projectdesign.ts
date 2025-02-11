@@ -9,7 +9,8 @@ import { getCurrentText,
         updateLessonName,
         deleteLesson,
         addNewTaskFlow,
-        updateTaskFlow
+        updateTaskFlow,
+        getTaskFlow
     } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
@@ -129,7 +130,11 @@ projectdesignRouter.patch('/taskFlow/:lessonID', (req: Request, res: Response) =
 
 projectdesignRouter.get('/taskFlow/:lessonID', (req: Request, res: Response) => {
 
-    res.json({ });
+    res.status(201).json({
+        success: true,
+        message: "Successfully retrieved the task flow for this lesson",
+        data: res.locals.taskFlow
+    });
 })
 
 projectdesignRouter.delete('/taskFlow', (req: Request, res: Response) => {
