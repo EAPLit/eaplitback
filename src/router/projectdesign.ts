@@ -1,7 +1,10 @@
 import express, { Request, Response, Router } from 'express';
 import { getCurrentText, 
-    updateCurrentText, 
-    getLessonsNames } from '@controllers/projectdesignController';
+        updateCurrentText, 
+        getLessonsNames,
+        getLessonTypes,
+        getTaskTypes
+    } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
@@ -30,7 +33,7 @@ projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res
  */
 projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req: Request, res: Response) => {
 
-    res.json({
+    res.status(201).json({
         success: true,
         message: "Successfully retrieved the names of the lessons",
         data: res.locals.lessonsNames
@@ -40,17 +43,25 @@ projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req
 /**
  * For <LessonTypes />
  */
-projectdesignRouter.get('/lessonTypes', (req: Request, res: Response) => {
+projectdesignRouter.get('/lessonTypes', getLessonTypes, (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({
+        success: true,
+        message: "Successfully retrieved the types of lessons available in this app.",
+        data: res.locals.lessonTypes
+    });
 });
 
 /**
  * For <TaskTypes />
  */
-projectdesignRouter.get('/taskTypes/:lessonTypeID', (req: Request, res: Response) => {
+projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.status(201).json({
+        success: true,
+        message: "Successfully retrieved the task types for this lesson type.",
+        data: res.locals.taskTypes
+    });
 });
 
 /**
