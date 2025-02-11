@@ -48,7 +48,7 @@ export class ProjectDesign {
     }
 
     /**
-     * LESSON NAMES
+     * GET LESSONS NAMES
      */
     public async getLessonsNames(projectID: string): Promise<ILessons> {
         try {
@@ -62,6 +62,21 @@ export class ProjectDesign {
         } catch (error) {
             console.error("projectdesignModel.ts, getLessonsNames, error getting the lessons names for your project: ", error);
             throw new Error("Failed to get the names of your lessons in this project.");
+        }
+    }
+
+    /**
+     * GET LESSON TYPES AND TASK TYPES
+     */
+
+    public async getLessonTypes(): Promise<ILessonTypes> {
+        try {
+            const lessonTypes: ILessonType[] = await this.knexUser("lessonTypes")
+                .select("lessonTypeID", "lessonTypeName")
+            return { lessonTypes: lessonTypes };
+        } catch (error) {
+            console.error("projectdesignModel.ts, getLessonsTypes, error getting the lessons types for your project: ", error);
+            throw new Error("Failed to get the types of lessons available in this app.");
         }
     }
 }
