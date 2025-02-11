@@ -152,6 +152,18 @@ export class ProjectDesign {
             throw new Error("Failed to update the lesson with a new name.");
         }
     }
+
+    public async deleteLesson(lessonID: string): Promise<void> {
+        try {
+            await this.knexUser("lessons")
+                .where({ lessonID })
+                .del()
+        } catch (error) {
+            console.error("projectdesignModel.ts, deleteLesson, error deleting the the lesson.");
+            throw new Error("Failed to delete the lesson");
+        }
+    }
+
     /**
      * TASK FLOW
      */

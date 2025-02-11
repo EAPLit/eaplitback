@@ -7,6 +7,7 @@ import { getCurrentText,
         addNewLesson,
         updateLessonType,
         updateLessonName,
+        deleteLesson,
         addNewTaskFlow
     } from '@controllers/projectdesignController';
 
@@ -96,7 +97,15 @@ projectdesignRouter.patch('/lesson/:lessonID', updateLessonName, (req: Request, 
         message: "Successfully updated the name of the lesson.",
         data: res.locals.newLessonName
     })
-})
+});
+
+// For whent he user wants to cancel creating a lesson midway through the lesson
+projectdesignRouter.delete('/lesson/:lessonID', deleteLesson, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Successfully deleted the lesson"
+    });
+});
 
 /**
  * For <TaskFlow />
@@ -120,24 +129,6 @@ projectdesignRouter.get('/taskFlow/:lessonID', (req: Request, res: Response) => 
 })
 
 projectdesignRouter.delete('/taskFlow', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-/**
- * For <LessonManager />
- */
-projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', (req: Request, res: Response) => {
-
-    res.json({ message: "success"});
-});
-
-projectdesignRouter.patch('/lessonName/:lessonsID', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-projectdesignRouter.delete('/lesson/:projectID', (req: Request, res: Response) => {
 
     res.json({ message: "success" });
 });
