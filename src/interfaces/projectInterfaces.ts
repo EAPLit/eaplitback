@@ -44,7 +44,6 @@ export interface IChosenTask {
     chosenTaskID: string;
     taskTypeID: string;
     order: number;
-    lessonID: string;
 }
 
 export interface IChosenTasks {

@@ -96,14 +96,14 @@ export class ProjectDesign {
      * TASK FLOW
      */
 
-    public async addNewTaskFlow(chosenTasks: IChosenTasks): Promise<void> {
+    public async addNewTaskFlow(chosenTasks: IChosenTasks, lessonID: string): Promise<void> {
         try {
             await this.knexUser("chosenTasks")
                 .insert(
                     chosenTasks.chosenTasks.map(task => ({
                         chosenTaskID: uuidv4(),
                         taskTypeID: task.taskTypeID,
-                        lessonID: task.lessonID,
+                        lessonID: lessonID,
                         order: task.order
                     }))
                 );

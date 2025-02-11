@@ -3,7 +3,8 @@ import { getCurrentText,
         updateCurrentText, 
         getLessonsNames,
         getLessonTypes,
-        getTaskTypes
+        getTaskTypes,
+        addNewTaskFlow
     } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
@@ -67,17 +68,20 @@ projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request,
 /**
  * For <TaskFlow />
  */
-projectdesignRouter.post('/taskFlow', (req: Request, res: Response) => {
+projectdesignRouter.post('/taskFlow/:lessonID', addNewTaskFlow, (req: Request, res: Response) => {
     // The req.body should contain an object of type IChosenTasks
+    res.status(201).json({
+        success: true,
+        message: "Successfully added your task flow"
+    });
+});
+
+projectdesignRouter.patch('/taskFlow/:lessonID', (req: Request, res: Response) => {
+
     res.json({ message: "success" });
 });
 
-projectdesignRouter.patch('/taskFlow', (req: Request, res: Response) => {
-
-    res.json({ message: "success" });
-});
-
-projectdesignRouter.get('/taskFlow', (req: Request, res: Response) => {
+projectdesignRouter.get('/taskFlow/:lessonID', (req: Request, res: Response) => {
 
     res.json({ });
 })

@@ -62,7 +62,7 @@ const getTaskTypes = async (req: Request, res: Response, next: NextFunction) => 
 
 const addNewTaskFlow = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        await projectDesign.addNewTaskFlow(req.body.chosenTasks);
+        await projectDesign.addNewTaskFlow(req.body.chosenTasks, req.params.lessonID);
         next();
     } catch (error) {
         console.error(error);
