@@ -95,9 +95,9 @@ export class ProjectDesign {
     /**
      * LESSONS
      */
-    public async addNewLesson(projectID: string, lessonTypeID: string): Promise<void> {
+    public async addNewLesson(projectID: string, lessonTypeID: string): Promise<ILesson> {
         try {
-            await this.knexUser("lessons")
+            const newLesson: ILesson = await this.knexUser("lessons")
                 .insert(
                     {
                         lessonID: uuidv4(),
@@ -105,13 +105,47 @@ export class ProjectDesign {
                         projectID: projectID,
                         lessonTypeID: lessonTypeID
                     }
-                );
+                )
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if (!newLesson) {
+                return { lessonID: '', lessonName: '' }
+            }
+            return newLesson;
         } catch (error) {
             console.error("projectdesignModel.ts, addNewLesson, error adding a new lesson: ", error);
             throw new Error("Failed to add a new lesson.");
         }
     }
 
+    public async updateLessonType(projectID: string, lessonTypeID: string): Promise<void> {
+        try {
+            await this.knexUser("lessons")
+                .where({ projectID })
+                .update({ lessonTypeID: lessonTypeID });
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateLessonType, error updating the lesson type id");
+            throw new Error("Failed to update the new lesson with a new lesson type.");
+        }
+    }
+
+    public async updateLessonName(lessonID: string, lessonName: string): Promise<ILesson> {
+        try {
+            const updatedLesson: ILesson = await this.knexUser("lessons")
+                .where({ lessonID })
+                .update({ lessonName: lessonName })
+                .returning(["lessonID", "lessonName"])
+                .then(rows => rows[0]);
+            if(!updatedLesson) {
+                return { lessonID: '', lessonName: '' };
+            }
+
+            return updatedLesson;
+        } catch (error) {
+            console.error("projectdesignModel.ts, updateLessonName, error updating the lesson type id");
+            throw new Error("Failed to update the lesson with a new name.");
+        }
+    }
     /**
      * TASK FLOW
      */

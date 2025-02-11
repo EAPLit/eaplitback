@@ -4,6 +4,9 @@ import { getCurrentText,
         getLessonsNames,
         getLessonTypes,
         getTaskTypes,
+        addNewLesson,
+        updateLessonType,
+        updateLessonName,
         addNewTaskFlow
     } from '@controllers/projectdesignController';
 
@@ -68,13 +71,31 @@ projectdesignRouter.get('/taskTypes/:lessonTypeID', getTaskTypes, (req: Request,
 /**
  * For <LessonDesignHead />
  */
-projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', (req: Request, res: Response) => {
+projectdesignRouter.post('/lesson/:projectID/:lessonTypeID', addNewLesson, (req: Request, res: Response) => {
 
     res.status(201).json({
         success: true,
-        message: "Successfully added a new lesson for the project of a specific lesson type."
-    })
+        message: "Successfully added a new lesson for the project of a specific lesson type.",
+        data: res.locals.newLesson
+    });
 });
+
+// For when the user changes their mind about which lesson type they want to do
+projectdesignRouter.patch('/lesson/:projectID/:lessonTypeID', updateLessonType, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated the lesson type for a lesson of this project"
+    });
+});
+
+// For when the user wants to change the name of the lesson
+projectdesignRouter.patch('/lesson/:lessonID', updateLessonName, (req: Request, res: Response) => {
+    res.status(201).json({
+        success: true,
+        message: "Successfully updated the name of the lesson.",
+        data: res.locals.newLessonName
+    })
+})
 
 /**
  * For <TaskFlow />
