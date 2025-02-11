@@ -1,4 +1,4 @@
-import { IText } from '@interfaces/projectInterfaces';
+import { IText, ILesson, ILessons } from '@interfaces/projectInterfaces';
 import Knex from 'knex';
 import { Knex as KnexType } from "knex";
 import config from "../../knexfile";
@@ -10,6 +10,10 @@ export class ProjectDesign {
     constructor(knexInstance?: KnexType) {
         this.knexUser = knexInstance ?? Knex(config[process.env.NODE_ENV || "development"]);
     }
+
+    /**
+     * TEXT
+     */
 
     public async getCurrentText(textID: string): Promise<IText> {
         try {
@@ -41,6 +45,23 @@ export class ProjectDesign {
             console.error("projectdesignModel.ts, updateCurrentText, error updating the text for your project: ", error);
             throw new Error("Failed to update the text for your project.");
         }
-        
+    }
+
+    /**
+     * LESSON NAMES
+     */
+    public async getLessonsNames(projectID: string): Promise<ILessons> {
+        try {
+            const lessonsNames: ILesson[] = await this.knexUser("lessons")
+                .select("lessonID", "lessonName")
+                .where("projecID", projectID)
+            if(lessonsNames.length === 0) {
+                return { "lessons": [] };
+            }
+            return { lessons: lessonsNames };
+        } catch (error) {
+            console.error("projectdesignModel.ts, getLessonsNames, error getting the lessons names for your project: ", error);
+            throw new Error("Failed to get the names of your lessons in this project.");
+        }
     }
 }

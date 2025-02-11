@@ -1,5 +1,7 @@
 import express, { Request, Response, Router } from 'express';
-import { getCurrentText, updateCurrentText } from '@controllers/projectdesignController';
+import { getCurrentText, 
+    updateCurrentText, 
+    getLessonsNames } from '@controllers/projectdesignController';
 
 const projectdesignRouter: Router = express.Router();
 
@@ -26,9 +28,13 @@ projectdesignRouter.patch('/text/:textID', updateCurrentText, (req: Request, res
 /**
  * For <ProjectLessonsDisplay />
  */
-projectdesignRouter.get('/projectLessonsNames/:projectID', (req: Request, res: Response) => {
+projectdesignRouter.get('/projectLessonsNames/:projectID', getLessonsNames, (req: Request, res: Response) => {
 
-    res.json({ message: "success" });
+    res.json({
+        success: true,
+        message: "Successfully retrieved the names of the lessons",
+        data: res.locals.lessonsNames
+    });
 });
 
 /**
