@@ -7,3 +7,5 @@ writingcorrectionRouter.post('/correctobot', (req: Request, res: Response) => {
 
     res.json({ success: true, message: "Successfully got correctobot results."})
 });
+
+export default writingcorrectionRouter;

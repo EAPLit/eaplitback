@@ -7,6 +7,7 @@ dotenv.config();
 import authRouter from "@router/auth";
 import mylearningRouter from "@router/mylearning";
 import projectdesignRouter from "@router/projectdesign";
+import writingcorrectionRouter from "@router/writingcorrection";
 
 const app: Express = express();
 
@@ -25,6 +26,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use("/auth", authRouter);
 app.use("/mylearning", mylearningRouter);
 app.use("/projectdesign", projectdesignRouter);
+app.use("/writingcorrection", writingcorrectionRouter);
 
 console.log("Front end URL from env: ", process.env.FRONTEND_URL);
 
